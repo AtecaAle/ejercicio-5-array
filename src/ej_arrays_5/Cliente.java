@@ -41,7 +41,7 @@ public class Cliente {
         return fechaFactura;
     }
 
-    public int getDiasDeVencimiento() {
+    public int getDiasVencimiento() {
         return DiasDeVencimiento;
     }
 

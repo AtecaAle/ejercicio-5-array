@@ -54,9 +54,16 @@ public class Empresa {
                 + "IMPORTE_BRUTO \t FECHA_VENCIMIENTO \t IMPORTE_NETO");
         
         for (int nCli = 0; nCli < clientes.length; nCli++){
+            Fecha vencimiento = new Fecha(clientes[nCli].getFechaFactura().getDia()
+            , clientes[nCli].getFechaFactura().getMes(), clientes[nCli].getFechaFactura().getAno());
+            
+            vencimiento.calcularVencimiento(clientes[nCli].getDiasVencimiento());
+            
             System.out.print(clientes[nCli].getCIF());
             System.out.print("\t" + clientes[nCli].getNombre());
-            System.out.print("\t" + (clientes[nCli].getFechaFactura()).fechaCompleta());
+            System.out.print("\t\t\t" + (clientes[nCli].getFechaFactura()).fechaCompleta());
+            System.out.print("\t" + clientes[nCli].getImporte());
+            System.out.print("\t" + vencimiento.fechaCompleta());
             
         }
     }
