@@ -46,6 +46,19 @@ public class Empresa {
 
     public void informe() {
         Fecha FHoy = new Fecha();
+        float descuento;
+        float importeNeto;
+        int pos;
+        int anoSig = FHoy.getAno();
+        int mesSig = FHoy.getMes() + 1;
+        
+        if (mesSig >11){
+            anoSig++;
+            mesSig = 0;
+        }
+        
+        
+        
 
         System.out.println("\t\t\t\t informe de facturas");
 
@@ -55,31 +68,32 @@ public class Empresa {
                 + "IMPORTE_BRUTO \t FECHA_VENCIMIENTO \t IMPORTE_NETO");
 
         for (int nCli = 0; nCli < clientes.length; nCli++) {
-            float descuento;
-            float importeNeto;
-            int pos;
-            
+
             Fecha vencimiento = new Fecha(clientes[nCli].getFechaFactura().getDia(),
                     clientes[nCli].getFechaFactura().getMes(), clientes[nCli].getFechaFactura().getAno());
-            
+
             pos = busqueda(clientes[nCli].getDiasVencimiento());
-            
-            if (pos == -1)
+
+            if (pos == -1) {
                 descuento = 0;
-            else
+            } else {
                 descuento = clientes[nCli].getImporte() * descuentos[pos].getDescuento();
-            
+            }
+
             importeNeto = clientes[nCli].getImporte() - descuento;
 
             vencimiento.calcularVencimiento(clientes[nCli].getDiasVencimiento());
 
-            System.out.print(clientes[nCli].getCIF());
-            System.out.print("\t" + clientes[nCli].getNombre());
-            System.out.print("\t\t" + (clientes[nCli].getFechaFactura()).fechaCompleta());
-            System.out.print("\t" + clientes[nCli].getImporte());
-            System.out.print("\t\t" + vencimiento.fechaCompleta());
-            System.out.println("\t\t" + importeNeto);
+            if (importeNeto > 10000 && 
+                    vencimiento.getMes() == mesSig && vencimiento.getAno() == anoSig) {
 
+                System.out.print(clientes[nCli].getCIF());
+                System.out.print("\t" + clientes[nCli].getNombre());
+                System.out.print("\t\t" + (clientes[nCli].getFechaFactura()).fechaCompleta());
+                System.out.print("\t" + clientes[nCli].getImporte());
+                System.out.print("\t\t" + vencimiento.fechaCompleta());
+                System.out.println("\t\t" + importeNeto);
+            }
         }
     }
 
